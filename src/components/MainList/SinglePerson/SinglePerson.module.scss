@@ -1,0 +1,20 @@
+.wraper{
+    display: flex;
+    margin-bottom: 10px;
+    border: solid 1px lightgrey;
+    padding: 10px;
+    background-color: grey;
+    .image{
+        margin-right: 10px;
+    }
+}
+.female{
+    background-color:rgb(172, 100, 100);
+    display: flex;
+    margin-bottom: 10px;
+    border: solid 1px lightgrey;
+    padding: 10px;
+}
+.wrap{
+    width:100%
+}

@@ -1,26 +1,66 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Header from './components/Header/Header'
+import { FetchCandidates } from './services/Services'
+import MainList from './components/MainList/MainList';
+import Search from './components/Search/Search'
 
-function App() {
+
+
+class App extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      persons: [],
+      view: true,
+      filterPersons: []
+    }
+  }
+
+
+  refresh = () => {
+    FetchCandidates("https://randomuser.me/api/?results=15").then((person) =>
+      this.setState({
+        persons: person.results,
+        filterPersons:person.results
+      })
+    );
+  }
+
+  changeView = () => {
+    this.setState({
+      view: !this.state.view
+    })
+  }
+
+  componentDidMount() {
+    this.refresh()
+  }
+
+  searchPeople = (textInput) => {
+    const newPersons=this.state.persons.filter((person)=>{
+      return person.name.first.toLowerCase().includes(textInput.toLowerCase()) ||
+       person.name.last.toLowerCase().includes(textInput.toLowerCase())
+    })
+    this.setState({
+      filterPersons:newPersons
+    })
+  }
+    
+
+
+
+
+
+
+
+render(){
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header changeView={this.changeView} view={this.state.view} refresh={this.refresh} />
+      <Search searchPeople={this.searchPeople}/>
+      <MainList view={this.state.view} persons={this.state.filterPersons} users={this.state.persons}/>
     </div>
   );
 }
-
+}
 export default App;

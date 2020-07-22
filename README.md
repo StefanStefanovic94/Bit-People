@@ -1,1 +1,1 @@
-<a href="https://stefanstefanovic94.github.io/People/#/">BitPeople Preview</a>
+<a href="https://stefanstefanovic94.github.io/People/#/">Project Preview</a>
